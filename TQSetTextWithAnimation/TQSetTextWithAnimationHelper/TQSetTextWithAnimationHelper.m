@@ -36,12 +36,7 @@
 
 - (void)setTextWithString:(NSString *)string
 {
-    NSInteger index = 0;
-    
-    if (self.tempString && string.length > 0 && [string hasPrefix:self.tempString])
-    {
-        index = self.tempString.length;
-    }
+    NSInteger index = [self indexWithStr:self.tempString string:string];
     
     NSMutableArray *array = [NSMutableArray array];
     
@@ -65,12 +60,7 @@
     
     NSString *attstr = [attString string];
     
-    NSInteger index = 0;
-    
-    if (self.tempString && attString.length > 0 && [attstr hasPrefix:self.tempString])
-    {
-        index = self.tempString.length;
-    }
+    NSInteger index = [self indexWithStr:self.tempString string:attstr];
     
     NSMutableArray *array = [NSMutableArray array];
     
@@ -84,6 +74,30 @@
     [self setTextWithArray:array];
     
     self.tempString = attString.string;
+}
+
+- (NSInteger )indexWithStr:(NSString *)string1 string:(NSString *)string2
+{
+    NSInteger index = 0;
+    
+    if (string1 && string1.length > 0 && string2 && string2.length>0)
+    {
+        for (int i = 0; i<string1.length; i++)
+        {
+            NSString *tempStr = [string1 substringWithRange:NSMakeRange(0, i+1)];
+            
+            if ([string2 hasPrefix:tempStr])
+            {
+                index = tempStr.length;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    
+    return index;
 }
 
 - (void)setTextWithArray:(NSArray *)array
