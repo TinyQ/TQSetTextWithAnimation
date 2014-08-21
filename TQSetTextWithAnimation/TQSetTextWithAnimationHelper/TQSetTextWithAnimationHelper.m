@@ -58,6 +58,13 @@
         return;
     }
     
+    if ([self.tempString isEqualToString:attString.string])
+    {
+        [self setTextToTargetWithAttString:attString];
+        
+        return;
+    }
+    
     NSString *attstr = [attString string];
     
     NSInteger index = [self indexWithStr:self.tempString string:attstr];
